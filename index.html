@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://kit.fontawesome.com/04dc4c746b.js" crossorigin="anonymous"></script>
+    <!-- Add fontts later -->
+    <title>Pujaa Jayajothi's Online Footprint</title>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>HI THERE!<br>WELCOME...</h1>
+            <div class="hero-line"></div>
+            <a href="#main" class="scroll-arrow">&#x2193;</a> <!-- down arrow -->
+        </div>
+    </section>
+
+    <nav class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">Pujaa Jayajothi</h1>
+    </div>
+    <div class="nav-right">
+      <a href="https://linkedin.com/in/jpujaa" title="LinkedIn" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="mailto:pujaa.jayajothi@gmail.com" title="E-Mail" aria-label="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href="https://github.com/pjayajothi" title="GitHub" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://jpujaa.substack.com" title="Substack" target="_blank" aria-label="Substack">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </nav>
+    <!-- MAIN CONTENT GRID -->
+    <section class="main-grid">
+        <div class="sidebar">
+            <img src="/Images/communication.png" alt="Cutout Style" />
+            <h2>How can I help you?</h2>
+        </div>
+
+        <div class="tiles">
+            <a class="tile" href="abouttme.html">
+            <img src="/Images/robot.png" alt="About Me" />
+            <span>About Me</span>
+            </a>
+            <a class="tile" href="helpful.html">
+            <img src="/Images/line.png" alt="Helpful Links" />
+            <span>Helpful Links</span>
+            </a>
+            <a class="tile" href="posts.html">
+            <img src="/Images/megaphone.png" alt="Anonymous Posts" />
+            <span>Anonymous Posts</span>
+            </a>
+            <a class="tile" href="favorites.html">
+            <img src="/Images/appreciation.png" alt="Favorites" />
+            <span>Favorites</span>
+            </a>
+            <a class="tile" href="recruiter.html">
+            <img src="/Images/hand.png" alt="Recruiter Hub" />
+            <span>Recruiter Hub</span>
+            </a>
+            <a class="tile" href="gallery.html">
+            <img src="/Images/gallery.png" alt="Gallery" />
+            <span>Gallery</span>
+            </a>
+        </div>
+    </section>
+    <!-- Contact form -->
+    <section class="contact-section" id="contact">
+      <div class="contact-tile">
+        <h2>Couldn't find what you were looking for?<br>Let me know and maybe I can help</h2>
+        <form action="https://formspree.io/f/mrbknedz" method="POST">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="subject" placeholder="Subject" required />
+          <textarea name="issue" placeholder="Issue" rows="5" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+        <!-- SUCCESS MESSAGE -->
+        <div id="form-success" class="hidden">Submitted!</div>
+      </div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Pujaa Jayajothi. All rights reserved.</p>
+        <p> <a href="https://www.flaticon.com/free-icons/favorite" title="favorite icons" target="_blank">Favorite icons created by Uniconlabs - Flaticon</a></p>
+        <p>Made with HTML, CSS, JavaScript and of course- Blood Sweat and Tears</span></p>
+    </footer>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const hero = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+            const heroHeight = hero.offsetHeight;
+            const scrollY = window.scrollY;
+
+            if (scrollY > heroHeight - 100) {
+            navbar.classList.remove('hidden');
+            navbar.classList.add('visible');
+            } else {
+            navbar.classList.remove('visible');
+            navbar.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <script>
+      const form = document.getElementById('contact-form');
+      const successMsg = document.getElementById('form-success');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault(); // prevent redirect
+
+        const formData = new FormData(form);
+        const action = "https://formspree.io/f/YOUR_FORM_ID"; // replace with your real Formspree ID
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            form.reset(); // clear form
+            successMsg.classList.remove('hidden'); // show success message
+          } else {
+            alert("There was a problem submitting your form.");
+          }
+        } catch (error) {
+          alert("Something went wrong. Please try again.");
+        }
+      });
+    </script>
+</body>
+</html>

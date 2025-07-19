@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Page</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://kit.fontawesome.com/04dc4c746b.js" crossorigin="anonymous"></script>
+    <!-- Add fontts later -->
+    <title>Pujaa Jayajothi's Online Footprint</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: linear-gradient(to right, #001f3f, #145a32);
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: linear-gradient(to right, #001f3f, #145a32);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #1e5809;
+            background-color: linear-gradient(to right, #001f3f, #145a32);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .intro, .skills {
+            margin-bottom: 20px;
+            background-color: linear-gradient(to right, #001f3f, #145a32);
+        }
+        .skills ul {
+            list-style-type: square;
+            padding-left: 20px;
+            background-color: linear-gradient(to right, #001f3f, #145a32);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <h1 class="logo">Pujaa Jayajothi</h1>
+        </div>
+        <div class="nav-right">
+            <a href="https://linkedin.com/in/jpujaa" title="LinkedIn" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:pujaa.jayajothi@gmail.com" title="E-Mail" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://github.com/pjayajothi" title="GitHub" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://jpujaa.substack.com" title="Substack" target="_blank" aria-label="Substack">
+                <i class="fas fa-rss"></i>
+            </a>
+        </div>
+    </nav>
+    <h1> Coming Soon!</h1>
+    <div class="container">
+        <div class="header">
+            <h1>About Me</h1>
+        </div>
+
+        <div class="image">
+            <img src="/Images/hero.JPG" alt="Pujaa Jayajothi" />
+        </div>
+
+        <div class="intro">
+            <h2>Introduction</h2>
+            <p>A brief introduction about yourself, your background, interests, and what makes you unique.</p>
+        </div>
+
+        <div class="skills">
+            <h2>My Skills</h2>
+            <ul>
+                <li>Skill 1</li>
+                <li>Skill 2</li>
+                <li>Skill 3</li>
+                <li>Skill 4</li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Pujaa Jayajothi. All rights reserved.</p>
+        <p> <a href="https://www.flaticon.com/free-icons/favorite" title="favorite icons" target="_blank">Favorite icons created by Uniconlabs - Flaticon</a></p>
+        <p>Made with HTML, CSS, JavaScript and of course- Blood Sweat and Tears</span></p>
+    </footer>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const hero = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+            const heroHeight = hero.offsetHeight;
+            const scrollY = window.scrollY;
+
+            if (scrollY > heroHeight - 100) {
+            navbar.classList.remove('hidden');
+            navbar.classList.add('visible');
+            } else {
+            navbar.classList.remove('visible');
+            navbar.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

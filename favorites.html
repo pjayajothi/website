@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pujaa's Favorites</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://kit.fontawesome.com/04dc4c746b.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #001f3f, #145a32);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin: 20px 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner {
+            width: 100%;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .banner .slider {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            top: 10%;
+            left: calc(50% - 100px);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+            transition: transform 1s ease-out;
+        }
+
+        .banner .slider.rotating-left {
+            animation: rotateLeft 1s linear infinite;
+        }
+
+        .banner .slider.rotating-right {
+            animation: rotateRight 1s linear infinite;
+        }
+
+        @keyframes rotateLeft {
+            from {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(var(--current-rotation, 0deg));
+            }
+            to {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(calc(var(--current-rotation, 0deg) - 2deg));
+            }
+        }
+
+        @keyframes rotateRight {
+            from {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(var(--current-rotation, 0deg));
+            }
+            to {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(calc(var(--current-rotation, 0deg) + 2deg));
+            }
+        }
+
+        .banner .slider .item {
+            position: absolute;
+            inset: 0 0 0 0;
+            transform: 
+                rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+                translateZ(550px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .banner .slider .item:hover {
+            transform: 
+                rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+                translateZ(580px);
+        }
+
+        .banner .slider .item.active {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) rotateX(16deg);
+            width: 80vw;
+            height: 70vh;
+            max-width: 600px;
+            max-height: 500px;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .banner .slider .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hover-zone {
+            position: fixed;
+            top: 0;
+            width: 100px;
+            height: 100vh;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+
+        .hover-zone.left {
+            left: 0;
+        }
+
+        .hover-zone.right {
+            right: 0;
+        }
+
+        .content-overlay {
+            display: none;
+        }
+
+        .rotation-indicator {
+            position: fixed;
+            top: 50%;
+            font-size: 2em;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            z-index: 999;
+            transition: opacity 0.3s ease;
+        }
+
+        .rotation-indicator.left {
+            left: 20px;
+        }
+
+        .rotation-indicator.right {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <h1 class="logo">Pujaa Jayajothi</h1>
+        </div>
+        <div class="nav-right">
+            <a href="https://linkedin.com/in/jpujaa" title="LinkedIn" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:pujaa.jayajothi@gmail.com" title="E-Mail" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://github.com/pjayajothi" title="GitHub" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://jpujaa.substack.com" title="Substack" target="_blank" aria-label="Substack">
+                <i class="fas fa-rss"></i>
+            </a>
+        </div>
+    </nav>
+    <div class="banner">
+        <div class="slider" id="slider" style="--quantity: 6">
+            <div class="item" style="--position: 1" data-content="favorite-songs">
+                <img src="Images/hero2.png" alt="Favorite Songs">
+                <div class="content-panel">
+                    <h3>Favorite Songs</h3>
+                    <p>My playlist of songs that never fail to lift my spirits and transport me to different worlds.</p>
+                    <div class="content-links">
+                        <a href="https://spotify.com/playlist/mysongs" class="content-link" target="_blank">Spotify Playlist</a>
+                        <a href="https://youtube.com/playlist?list=mysongs" class="content-link" target="_blank">YouTube Mix</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="--position: 2" data-content="favorite-movies">
+                <img src="Images/hero2.png" alt="Favorite Movies">
+                <div class="content-panel">
+                    <h3>Favorite Movies</h3>
+                    <p>Films that have shaped my perspective and provided countless hours of entertainment.</p>
+                    <div class="content-links">
+                        <a href="https://letterboxd.com/mylist" class="content-link" target="_blank">Letterboxd List</a>
+                        <a href="https://imdb.com/list/mylist" class="content-link" target="_blank">IMDb List</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="--position: 3" data-content="favorite-books">
+                <img src="Images/hero2.png" alt="Favorite Books">
+                <div class="content-panel">
+                    <h3>Favorite Books</h3>
+                    <p>Stories that have taken me on incredible journeys and expanded my imagination.</p>
+                    <div class="content-links">
+                        <a href="https://goodreads.com/myshelf" class="content-link" target="_blank">Goodreads</a>
+                        <a href="https://amazon.com/wishlist/books" class="content-link" target="_blank">Wishlist</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="--position: 4" data-content="favorite-places">
+                <img src="Images/hero2.png" alt="Favorite Places">
+                <div class="content-panel">
+                    <h3>Favorite Places</h3>
+                    <p>Special locations that hold dear memories and have touched my soul.</p>
+                    <div class="content-links">
+                        <a href="https://maps.google.com/myplaces" class="content-link" target="_blank">Google Maps</a>
+                        <a href="https://foursquare.com/mylist" class="content-link" target="_blank">Check-ins</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="--position: 5" data-content="favorite-food">
+                <img src="Images/hero2.png" alt="Favorite Food">
+                <div class="content-panel">
+                    <h3>Favorite Food</h3>
+                    <p>Delicious dishes that bring comfort and joy, from family recipes to new discoveries.</p>
+                    <div class="content-links">
+                        <a href="https://allrecipes.com/myrecipes" class="content-link" target="_blank">Recipes</a>
+                        <a href="https://yelp.com/mylist" class="content-link" target="_blank">Restaurants</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="--position: 6" data-content="favorite-memories">
+                <img src="Images/hero2.png" alt="Favorite Memories">
+                <div class="content-panel">
+                    <h3>Favorite Memories</h3>
+                    <p>Precious moments that remind me of the beauty in everyday life and important people.</p>
+                    <div class="content-links">
+                        <a href="https://photos.google.com/album/memories" class="content-link" target="_blank">Photo Album</a>
+                        <a href="https://instagram.com/highlights/memories" class="content-link" target="_blank">Highlights</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hover-zone left" id="leftZone"></div>
+    <div class="hover-zone right" id="rightZone"></div>
+
+    <div class="rotation-indicator left" id="leftIndicator">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="rotation-indicator right" id="rightIndicator">
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <div class="content-overlay" id="contentOverlay"></div>
+
+    <footer>
+        <p>&copy; 2025 Pujaa Jayajothi. All rights reserved.</p>
+        <p> <a href="https://www.flaticon.com/free-icons/favorite" title="favorite icons" target="_blank">Favorite icons created by Uniconlabs - Flaticon</a></p>
+        <p>Made with HTML, CSS, JavaScript and of course- Blood Sweat and Tears</span></p>
+    </footer>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const hero = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+            const heroHeight = hero.offsetHeight;
+            const scrollY = window.scrollY;
+
+            if (scrollY > heroHeight - 100) {
+            navbar.classList.remove('hidden');
+            navbar.classList.add('visible');
+            } else {
+            navbar.classList.remove('visible');
+            navbar.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const leftZone = document.getElementById('leftZone');
+        const rightZone = document.getElementById('rightZone');
+        const leftIndicator = document.getElementById('leftIndicator');
+        const rightIndicator = document.getElementById('rightIndicator');
+        const items = document.querySelectorAll('.item');
+
+        let currentRotation = 0;
+        let isRotating = false;
+        let rotationInterval;
+
+        // Hover zone functionality
+        leftZone.addEventListener('mouseenter', () => {
+            if (!isRotating) {
+                startRotation('left');
+            }
+        });
+
+        rightZone.addEventListener('mouseenter', () => {
+            if (!isRotating) {
+                startRotation('right');
+            }
+        });
+
+        leftZone.addEventListener('mouseleave', stopRotation);
+        rightZone.addEventListener('mouseleave', stopRotation);
+
+        function startRotation(direction) {
+            isRotating = true;
+            slider.classList.add(`rotating-${direction}`);
+            
+            if (direction === 'left') {
+                leftIndicator.style.opacity = '1';
+            } else {
+                rightIndicator.style.opacity = '1';
+            }
+
+            rotationInterval = setInterval(() => {
+                if (direction === 'left') {
+                    currentRotation -= 2;
+                } else {
+                    currentRotation += 2;
+                }
+                slider.style.setProperty('--current-rotation', currentRotation + 'deg');
+            }, 16);
+        }
+
+        function stopRotation() {
+            isRotating = false;
+            slider.classList.remove('rotating-left', 'rotating-right');
+            leftIndicator.style.opacity = '0';
+            rightIndicator.style.opacity = '0';
+            clearInterval(rotationInterval);
+        }
+
+        // Item click functionality
+        items.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Don't trigger if clicking on a link
+                if (e.target.tagName === 'A') {
+                    return;
+                }
+                
+                e.stopPropagation();
+                
+                // Stop rotation if it's happening
+                stopRotation();
+                
+                // Toggle active state
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    isRotating = false;
+                } else {
+                    // Remove active class from all items
+                    items.forEach(i => i.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Prevent rotation while item is active
+                    isRotating = true;
+                }
+            });
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.item')) {
+                items.forEach(item => item.classList.remove('active'));
+                isRotating = false;
+            }
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                items.forEach(item => item.classList.remove('active'));
+                isRotating = false;
+            }
+        });
+    </script>
+</body>
+</html>
